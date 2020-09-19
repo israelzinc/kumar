@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import ToggleButton from 'react-bootstrap/ToggleButton'
 import ButtonGroup from "react-bootstrap/ButtonGroup"
 import NoCamera from "./no-camera";
-import Camera from "./camera"
-import PoseComponent from "./pose"
+import FaceDetectionComponent from "./face";
 
 function Main() {  
 
@@ -16,7 +15,8 @@ function Main() {
 
   return <div>
     {/* {camOn ? <Camera/> : <NoCamera/>} */}
-    {camOn ? <PoseComponent /> : <NoCamera />}
+    {/* {camOn ? <PoseComponent /> : <NoCamera />} */}
+    {camOn ? <FaceDetectionComponent /> : <NoCamera />}
     <ButtonGroup toggle>
       <ToggleButton
         key={"0"}
