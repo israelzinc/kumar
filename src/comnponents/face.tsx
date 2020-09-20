@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Webcam from 'react-webcam';
-import { loadModels, getFullFaceDescription, createMatcher } from '../api/face';
+import { loadModels, getFullFaceDescription, createMatcher, getOverlayValues, getRandomMask } from '../api/face';
 
 // Import face profile
 const JSON_PROFILE = require('../descriptors/bnk48.json');
@@ -78,10 +78,30 @@ class VideoInput extends Component<{},IVideoInputState> {
         inputSize
       ).then(fullDesc => {
         if (!!fullDesc) {
+          // const scale = originalImage.width / originalImage.naturalWidth
+          // const scale = 10;
+          const overlayValues = getOverlayValues(fullDesc.landmarks)
+          // console.log("overlayValues",overlayValues);
+          // const overlay = document.createElement("img")
+          // overlay.src = getRandomMask()
+          // overlay.alt = "mask overlay."
+          // overlay.style.cssText = `
+          // position: absolute;
+          // left: ${overlayValues.leftOffset * scale}px;
+          // top: ${overlayValues.topOffset * scale}px;
+          // width: ${overlayValues.width * scale}px;
+          // transform: rotate(${overlayValues.angle}deg);
+        
+
           this.setState({
-            detections: fullDesc.map(fd => fd.detection),
-            descriptors: fullDesc.map(fd => fd.descriptor)
-          });
+            detections: [overlayValues]
+          })
+          // item.appendChild(overlay)
+          // const overlayValues = fullDesc.landmarks;
+          // this.setState({
+          //   detections: fullDesc.map(fd => fd.detection),
+          //   descriptors: fullDesc.map(fd => fd.descriptor)
+          // });
         }
       });
 
@@ -114,40 +134,75 @@ class VideoInput extends Component<{},IVideoInputState> {
     let drawBox = null;
     if (!!detections) {
       drawBox = detections.map((detection:any, i:number) => {
-        let _H = detection.box.height;
-        let _W = detection.box.width;
-        let _X = detection.box._x;
-        let _Y = detection.box._y;
+        console.log("Detection",detection);
+        const overlayValues = detection;
+        // console.log("overlayValues",overlayValues);
+        // let scale = 10;
+        const scale = WIDTH / HEIGHT;
+        const overlay = document.createElement("img")
+        overlay.src = getRandomMask()
+        overlay.alt = "mask overlay."
+        overlay.style.cssText = `
+        position: absolute;
+        left: ${overlayValues.leftOffset * scale}px;
+        top: ${overlayValues.topOffset * scale}px;
+        width: ${overlayValues.width * scale}px;
+        transform: rotate(${overlayValues.angle}deg);
+        `
         return (
-          <div key={i}>
-            <div
-              style={{
-                position: 'absolute',
-                border: 'solid',
-                borderColor: 'blue',
-                height: _H,
-                width: _W,
-                transform: `translate(${_X}px,${_Y}px)`
-              }}
-            >
-              {!!match && !!match[i] ? (
-                <p
-                  style={{
-                    backgroundColor: 'blue',
-                    border: 'solid',
-                    borderColor: 'blue',
-                    width: _W,
-                    marginTop: 0,
-                    color: '#fff',
-                    transform: `translate(-3px,${_H}px)`
-                  }}
-                >
-                  {match[i]._label}
-                </p>
-              ) : null}
+            <div key={i}>
+              <img              
+                src={getRandomMask()}
+                style={{
+                  position: 'absolute', 
+                  left: `${overlayValues.leftOffset * scale}px;`,
+                  top: `${overlayValues.topOffset * scale}px;`,
+                  width: `${overlayValues.width * scale}px;`,
+                  transform: `rotate(${overlayValues.angle}deg)`
+                }}
+              ></img>                             
             </div>
-          </div>
         );
+
+
+
+
+        // OLD STUFF
+        // console.log("DETECTOU!",detection);
+        // let _H = detection.box.height;
+        // let _W = detection.box.width;
+        // let _X = detection.box._x;
+        // let _Y = detection.box._y;
+        // return (
+        //   <div key={i}>
+        //     <div
+        //       style={{
+        //         position: 'absolute',
+        //         border: 'solid',
+        //         borderColor: 'red',
+        //         height: _H,
+        //         width: _W,
+        //         transform: `translate(${_X}px,${_Y}px)`
+        //       }}
+        //     >
+        //       {!!match && !!match[i] ? (
+        //         <p
+        //           style={{
+        //             backgroundColor: 'blue',
+        //             border: 'solid',
+        //             borderColor: 'blue',
+        //             width: _W,
+        //             marginTop: 0,
+        //             color: '#fff',
+        //             transform: `translate(-3px,${_H}px)`
+        //           }}
+        //         >
+        //           {match[i]._label}
+        //         </p>
+        //       ) : null}
+        //     </div>
+        //   </div>
+        // );
       });
     }
 

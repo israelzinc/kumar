@@ -49,22 +49,22 @@ function PoseComponent() {
   }
 
   const capture = async () => {
-    if (webcam.current) {
-      await getFullFaceDescription(
-        webcam.current.getScreenshot(),
-        inputSize
-      ).then( fullDesc => {
-        if (!!fullDesc) {
-          setDetections(fullDesc.map(fd => fd.detection));
-          setDescriptors(fullDesc.map(fd => fd.descriptor));
-        }
-      });
+    // if (webcam.current) {
+    //   await getFullFaceDescription(
+    //     webcam.current.getScreenshot(),
+    //     inputSize
+    //   ).then( fullDesc => {
+    //     if (!!fullDesc) {
+    //       setDetections(fullDesc.map(fd => fd.detection));
+    //       // setDescriptors(fullDesc.map(fd => fd.descriptor));
+    //     }
+    //   });
 
-      if (!!detections && !!faceMatcher) {
-        let match = await descriptors.map((descriptor:any) => faceMatcher.findBestMatch(descriptor))
-        setMatch(match)
-      }
-    }
+    //   if (!!detections && !!faceMatcher) {
+    //     let match = await descriptors.map((descriptor:any) => faceMatcher.findBestMatch(descriptor))
+    //     setMatch(match)
+    //   }
+    // }
   }
   
   return <div>
