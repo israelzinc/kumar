@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import ToggleButton from 'react-bootstrap/ToggleButton'
 import ButtonGroup from "react-bootstrap/ButtonGroup"
 import NoCamera from "./no-camera";
-import FaceDetectionComponent from "./face";
+// import FaceDetectionComponent from "./face";
+import PortraitComponent from "./portrait";
 
 function Main() {  
 
-  const [camOn, setCam] = useState<boolean>(false);
+  const [camOn, setCam] = useState<boolean>(true);
 
   const setRadioValue = (e: boolean) => {
     setCam(e);
@@ -16,7 +17,8 @@ function Main() {
   return <div>
     {/* {camOn ? <Camera/> : <NoCamera/>} */}
     {/* {camOn ? <PoseComponent /> : <NoCamera />} */}
-    {camOn ? <FaceDetectionComponent /> : <NoCamera />}
+    {/* {camOn ? <FaceDetectionComponent /> : <NoCamera />} */}
+    {camOn ? <PortraitComponent /> : <NoCamera />}
     <ButtonGroup toggle>
       <ToggleButton
         key={"0"}

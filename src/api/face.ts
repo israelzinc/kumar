@@ -9,6 +9,8 @@ export async function loadModels() {
 }
 
 export async function getFullFaceDescription(blob: any, inputSize = 512) {
+
+  if (blob == null) { return; }
   // tiny_face_detector options
   let scoreThreshold = 0.5;
   const OPTION = new faceapi.TinyFaceDetectorOptions({
@@ -87,5 +89,6 @@ export const getRandomMask = () => {
   // const index = Math.floor(masks.length * Math.random())
   const index = Math.floor(masks.length * Math.random())
 
+  console.log("Masks",masks, index);
   return masks[index]
 }
