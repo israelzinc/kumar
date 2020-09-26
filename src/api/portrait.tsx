@@ -56,7 +56,7 @@ export const getAnniversaryComponent = (width:number, height: number) => {
       src={source}
       style = {{
         position: 'absolute',
-        left:`${width-(width/2)-10}px`,
+        left:`${width-(width/2)-25}px`,
         top: `${-height *0.4}px`,
         transform: `scale(${scale})`
       }}
@@ -75,8 +75,8 @@ export const getBalloonComponent = (width: number, height: number) => {
       src={source}
       style={{
         position: 'absolute',
-        left: `${-width}px`,
-        top: `${(-2*height)*0.9}px`,
+        left: `${-width-260}px`,
+        top: `${(-2*height)*0.95}px`,
         transform: `scale(${0.1})`
       }}
     />
@@ -94,12 +94,31 @@ export const getLeftBearComponent = (width: number, height: number) => {
       src={source}
       style={{
         position: 'absolute',
-        left: `${26}px`,
+        left: `${-50}px`,
         // top: `${-height * 0.6}px`,
         // transform: `scale(${scale})`
       }}
     />
   </div>)
+}
+
+export const getTomatoBearComponent = (width: number, height: number) => {
+  const imagem = 'tomato.png';
+  const source = BASE_URL + "/" + imagem;
+  const sourceWidth = 420;
+  const sourceHeight = 283;
+  const scale = (width / sourceWidth) * 0.4
+  return (<div>
+    <img
+      src={source}
+      style={{
+        position: 'absolute',
+        left: `${-80}px`,
+        top: `${130}px`,
+        transform: `scale(${0.5})`
+      }}
+    />
+  </div>)  
 }
 
 export const getFlowersComponent = (width: number, height: number) => {
@@ -108,14 +127,15 @@ export const getFlowersComponent = (width: number, height: number) => {
   const sourceWidth = 420;
   const sourceHeight = 283;
   const scale = (width / sourceWidth) * 0.4
+  const compensation = -20
 
   const flowerPositions = [
-    { top: height - (height * 0.8), left: width - (width / 2), scale },
-    { top: height - (height * 0.8) + 100, left: width - (width / 2), scale: scale *2},
-    { top: height - (height * 0.8) + 100, left: width - (width / 2) - 90, scale },
-    { top: height - (height * 0.8) + 100, left: width - (width / 2) - 180, scale: scale*0.4 },
-    { top: height - (height * 0.8) - 80, left: width - (width / 2) + 20, scale: scale*1.5 },
-    { top: height - (height * 0.8) - 160, left: width - (width / 2) + 20, scale: scale*0.7 },
+    { top: height - (height * 0.8), left: width - (width / 2) +compensation, scale },
+    { top: height - (height * 0.8) + 100, left: width - (width / 2) -20 + compensation, scale: scale *2},
+    { top: height - (height * 0.8) + 100, left: width - (width / 2) - 90 + compensation, scale },
+    { top: height - (height * 0.8) + 100, left: width - (width / 2) - 180 + compensation, scale: scale*0.4 },
+    { top: height - (height * 0.8) - 80, left: width - (width / 2) - 10 + compensation, scale: scale*1.5 },
+    { top: height - (height * 0.8) - 160, left: width - (width / 2) - 20 + compensation, scale: scale*0.7 },
   ]
   return (<div>
     {flowerPositions.map(e => {

@@ -14,11 +14,19 @@ function Main() {
     setCam(e);
   }
 
-  return <div>
+  return <div
+    style={{      
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }}
+    >
     {/* {camOn ? <Camera/> : <NoCamera/>} */}
     {/* {camOn ? <PoseComponent /> : <NoCamera />} */}
     {/* {camOn ? <FaceDetectionComponent /> : <NoCamera />} */}
     {camOn ? <PortraitComponent /> : <NoCamera />}
+    <br/>
+    <label>カメラ</label>
     <ButtonGroup toggle>
       <ToggleButton
         key={"0"}

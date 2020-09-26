@@ -7,7 +7,9 @@ import useStyles from './simple.styles';
 import Navbar from 'react-bootstrap/Navbar';
 
 // import {NavDropdown, Nav} from "react-bootstrap/";
-import bear from "../resources/bear.png"
+// import bear from "../resources/bear.png"
+// import reactLogo from "../logo.svg"
+import logo from "../big.png"
 
 import "../App.css"
 
@@ -24,29 +26,40 @@ const SimpleLayout: React.FC<Props> = ({ mainElement }) => {
   const styles = useStyles();
 
   return (
-    <div>
+    <>
       {/* <Navbar fixed="top" bg="dark" variant="dark" style = {{ height: '84px' }}> */}
-      <Navbar>
+      {/* <Navbar>
         <Navbar.Brand>
           <img          
             src={bear}
-            height = "70"
+            height = "70px"
             className= "d-inline-block align-top App-logo"            
             alt = "kumar-logo"
           />
-        </Navbar.Brand>        
-        <Navbar.Collapse id="basic-navbar-nav">
+        </Navbar.Brand>         */}
+        {/* <Navbar.Collapse id="basic-navbar-nav">
           <Navbar.Text>
           ようこそ！熊AR
           </Navbar.Text>                    
-        </Navbar.Collapse>
+        </Navbar.Collapse> */}
+      {/* </Navbar> */}
+      <Navbar bg="dark" variant="dark">
+        <Navbar.Brand href="#home">
+          <img
+            src={logo}
+            width="40"
+            height="40"
+            className="d-inline-block align-top"
+            alt="React Bootstrap logo"
+          />くまモン１０年週
+        </Navbar.Brand>
       </Navbar>
       <div className = { styles.mainLayout } >        
-      <div className = "simple-column" >
-        { mainElement }
+        <div className = "simple-column" >
+          { mainElement }
+        </div>
       </div>
-      </div>
-    </div>
+    </>
   );
 }
 

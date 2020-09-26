@@ -11,7 +11,7 @@ const theme = {
 
   palette: [
     //Grayscale
-    "white",
+    // "white",
     "#DDDDDD",
     "#777777",
     "#55595C",

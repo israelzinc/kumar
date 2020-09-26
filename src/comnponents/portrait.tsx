@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import Button from 'react-bootstrap/esm/Button';
-import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Webcam from 'react-webcam';
-import { getFlowersComponent, getAnniversaryComponent, getLeftBearComponent, getBalloonComponent, getAnniversaryImage } from '../api/portrait';
+import { getFlowersComponent, getAnniversaryComponent, getLeftBearComponent, getBalloonComponent, getAnniversaryImage, getTomatoBearComponent } from '../api/portrait';
 
-const WIDTH = 420;
+const WIDTH = 320;
+// const WIDTH = 420;
 const HEIGHT = 420;
 const inputSize = 160;
 
@@ -15,6 +16,7 @@ interface IVideoInputState {
   anniversary: any;
   facingMode: any;
   ibagem: any;
+  tomato: any;
 }
 
 
@@ -32,7 +34,8 @@ class VideoInput extends Component<{}, IVideoInputState> {
       flowers: null,
       anniversary: null,
       facingMode: '',
-      ibagem: null
+      ibagem: null,
+      tomato: null
     };
   }
 
@@ -148,13 +151,22 @@ class VideoInput extends Component<{}, IVideoInputState> {
           this.setState({ balloon: null })
         }        
         break;
+      case 'tomato':
+        if (!this.state.tomato) {
+          let tomato = getTomatoBearComponent(WIDTH, HEIGHT);
+          this.setState({ tomato });
+        } else {
+          this.setState({ tomato: null })
+        }
+        break;
     }
 
+    
   
   }
 
   render() {
-    const {  facingMode, ibagem, balloon, anniversary, flowers, leftBear } = this.state;
+    const {  facingMode, ibagem, balloon, anniversary, flowers, leftBear, tomato } = this.state;
     let videoConstraints = null;
     let camera = '';
     if (!!facingMode) {
@@ -180,7 +192,7 @@ class VideoInput extends Component<{}, IVideoInputState> {
           alignItems: 'center'
         }}
       >
-        <p>Camera: {camera}</p>
+        {/* <p>Camera: {camera}</p> */}
         <div
           style={{
             width: WIDTH,
@@ -208,17 +220,28 @@ class VideoInput extends Component<{}, IVideoInputState> {
               {!!balloon ? balloon : null}
               {!!anniversary ? anniversary : null}
               {!!flowers ? flowers : null}
-              {!!leftBear ? leftBear : null}              
+              {!!leftBear ? leftBear : null}    
+              {!!tomato ? tomato : null}              
           </div>
           
         </div>
-      </div>
+      </div>      
+      <div
+          className="Filters"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}>
+        <label>フィルター選択</label>
         <ButtonGroup>
-          <Button className="btn-secondary" onClick={()=>this.addPanel("kumamon")}>Anniversary</Button>
-          <Button className="btn-secondary" onClick={() => this.addPanel("flowers")}>Flowers</Button>
-          <Button className="btn-secondary" onClick={() => this.addPanel("left-bear")}>LeftBear</Button>
-          <Button className="btn-secondary" onClick={() => this.addPanel("balloon")}>Balloon</Button>
-        </ButtonGroup>
+            <Button variant={anniversary!=null?"secondary":"info"} size="sm" onClick={() => this.addPanel("kumamon")}>誕生日</Button>{' '}
+            <Button variant={flowers != null ? "secondary" : "danger"} size="sm" onClick={() => this.addPanel("flowers")}>花</Button>{' '}
+            <Button variant={leftBear != null ? "secondary" : "info"} size="sm" onClick={() => this.addPanel("left-bear")}>左くまモン</Button>{' '}
+            <Button variant={balloon != null ? "secondary" : "danger"} size="sm" onClick={() => this.addPanel("balloon")}>風船</Button>{' '}
+            <Button variant={tomato != null ? "secondary" : "info"} size="sm" onClick={() => this.addPanel("tomato")}>トマト</Button>{' '}
+          </ButtonGroup>
+      </div>
         {/* <Button onClick={() => this.saveImage()}>SaveImage</Button> */}
       </div>
     );
